@@ -19,7 +19,7 @@ const pageConfig = {
     console.log("iv=" + e.detail.iv);
     console.log("encryptedData=" + e.detail.encryptedData);
 
-    if(e.detail.iv){
+    if (e.detail.iv) {
       let session_key = '';
       WeAppStorage.getItem('reduxPersist:auth', (error, dat) => {
         if (!error) {
@@ -38,16 +38,15 @@ const pageConfig = {
       }).then((rd) => {
       }).catch((error) => {
       });
-    }else {
-
+    } else {
+      this._pageTo(null,'../login/Login')
     }
   },
   onLoad: function () {
     let _this = this;
     WeAppStorage.getItem('uerInfo', (error, dat) => {
       if (error) {
-        // wx.hideTabBar();
-        _this.setData( {
+        _this.setData({
           popModal: true
         })
       } else {
@@ -87,6 +86,17 @@ const pageConfig = {
   },
   onShow() {
     // console.log(this.data.isShowProjectForm)
+  },
+  _pageTo(event, url) {
+    if (url) {
+      wx.navigateTo({
+        url: url
+      })
+    } else if (event && event.currentTarget.dataset.url) {
+      wx.navigateTo({
+        url: event.currentTarget.dataset.url
+      })
+    }
   }
 };
 

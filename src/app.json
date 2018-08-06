@@ -4,7 +4,7 @@
     "pages/carts/Carts",
     "pages/my/My",
     "pages/login/Login",
-    "pages/protocol/Login"
+    "pages/protocol/Protocol"
   ],
   "window": {
     "navigationBarBackgroundColor": "#262930",

@@ -5,9 +5,9 @@
   "main": "",
   "repository": "",
   "scripts": {
-    "dev": "npm run remote-dev-server & NODE_ENV=development gulp dev",
+    "dev": "npm run remote-dev-server && NODE_ENV=development gulp dev",
     "release": "NODE_ENV=production gulp build",
-    "remote-dev-server": "remotedev --hostname=localhost --port=5678 &"
+    "remote-dev-server": "remotedev --hostname=localhost --port=5678"
   },
   "author": "",
   "license": "ISC",

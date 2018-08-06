@@ -12,7 +12,7 @@
                 <image class="dialogImage" mode="scaleToFill" src="../../images/login_icon.png"></image>
                 <view class="dialog_url">
                     <text>登录即表示您同意中酒网</text>
-                    <text class="active">《用户使用协议》</text>
+                    <text class="active" bindtap="_pageTo" data-url="../protocol/Protocol">《用户使用协议》</text>
                 </view>
                 <button open-type="getPhoneNumber"
                         class="dialog_btn"

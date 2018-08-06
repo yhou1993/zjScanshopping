@@ -18,10 +18,9 @@ page {
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 200rpx 0;
     box-sizing: border-box;
+    /*noinspection ALL*/
+    font-size: 24rpx;
 }
 
 .modal {
@@ -58,37 +57,25 @@ page {
 
 
 .btn-area {
-    padding: 8px;
-}
-
-.btn-area.btn-inline {
     display: flex;
+    flex-direction: column;
+    padding: 20rpx;
 }
 
-.btn-area.btn-inline button {
-    flex: 1;
+.btn-area .button{
+    flex:1;
+    background: #f41027;
+    border-radius: 4px;
+    padding: 20rpx 0;
+    align-content: center;
+    justify-content: center;
 }
 
-.btn-area button {
-    font-size: 14px;
-}
-
-.btn-area button:not(:last-child) {
-    margin-right: 8px;
-}
-
-.btn-primary {
-    background-color: #3dbd7d;
-    color: #fff;
-}
-
-.btn-primary:active {
-    background-color: #00a854;
-}
-
-.btn-block {
+.btn-area .button text{
+    color: #ffffff;
+    font-size: 30rpx;
+    text-align: center;
     display: block;
-    width: 100%;
 }
 
 .notification {

@@ -43,13 +43,14 @@ var pageConfig = {
         data: { sessionKey: session_key, encryptedData: encryptedData, iv: iv },
         method: 'GET'
       }).then(function (rd) {}).catch(function (error) {});
-    } else {}
+    } else {
+      this._pageTo(null, '../login/Login');
+    }
   },
   onLoad: function onLoad() {
     var _this = this;
     _WeAppStorage2.default.getItem('uerInfo', function (error, dat) {
       if (error) {
-        // wx.hideTabBar();
         _this.setData({
           popModal: true
         });
@@ -90,6 +91,17 @@ var pageConfig = {
   },
   onShow: function onShow() {
     // console.log(this.data.isShowProjectForm)
+  },
+  _pageTo: function _pageTo(event, url) {
+    if (url) {
+      wx.navigateTo({
+        url: url
+      });
+    } else if (event && event.currentTarget.dataset.url) {
+      wx.navigateTo({
+        url: event.currentTarget.dataset.url
+      });
+    }
   }
 };
 
