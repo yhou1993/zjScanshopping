@@ -1,0 +1,9 @@
+.protocolwrap{
+    padding: 20rpx;
+    color: #8f8f94;
+    font-size: 28rpx;
+    line-height: 42rpx;
+}
+.protocolp{
+    margin-bottom: 20rpx;
+}

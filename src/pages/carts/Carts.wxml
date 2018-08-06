@@ -1,0 +1,4 @@
+<!--index.wxml-->
+<scroll-view class="container" scroll-y>
+    <web-view src="https://bbcredis.zhongjiu.cn/m-wap"></web-view>
+</scroll-view>

@@ -1,0 +1,20 @@
+<!--index.wxml-->
+<view class="container">
+    <view class="content">
+        <view class="form_item form_phone">
+            <input placeholder="请输入手机号" auto-focus/>
+        </view>
+        <view class="form_item confirm_img">
+            <input placeholder="请输入图形验证码" auto-focus/>
+        </view>
+        <view class="form_item confirm_phone">
+            <input placeholder="请输入手机验证码" auto-focus/>
+        </view>
+        <text>未注册手机号码验证后自动创建爱你中酒账户</text>
+        <button class="dialog_btn" disabled="{{canClick}}" bindgetphonenumber="_login">登录</button>
+    </view>
+    <view class="dialog_url">
+        <text>登录即表示您同意中酒网</text>
+        <text class="active">《用户使用协议》</text>
+    </view>
+</view>

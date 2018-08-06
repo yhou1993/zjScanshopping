@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/index/Home",
+    "pages/carts/Carts",
+    "pages/my/My",
+    "pages/login/Login",
+    "pages/protocol/Login"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#262930",
+    "navigationBarTitleText": "中酒扫码购",
+    "navigationBarTextStyle": "#ffffff",
+    "backgroundColor": "#f5f5f5",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#7d7d7d",
+    "selectedColor": "#f26f8f",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/carts/Carts",
+        "text": "购物车",
+        "iconPath": "./images/carts.png",
+        "selectedIconPath": "./images/carts1.png"
+      },
+      {
+        "pagePath": "pages/index/Home",
+        "text": "首页",
+        "iconPath": "./images/home.png",
+        "selectedIconPath": "./images/home1.png"
+      },
+      {
+        "pagePath": "pages/my/My",
+        "text": "我的",
+        "iconPath": "./images/my.png",
+        "selectedIconPath": "./images/my1.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 15000,
+    "downloadFile": 15000,
+    "uploadFile": 15000
+  },
+  "debug": true
+}

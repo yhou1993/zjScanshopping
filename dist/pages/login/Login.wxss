@@ -1,0 +1,65 @@
+.content {
+    flex: 1;
+    flex-direction: column;
+    background: #ffffff;
+    padding-top: 100rpx;
+}
+
+.content input{
+    border: 0;
+    font-size: 32rpx;
+}
+
+.form_item {
+    margin: 75rpx auto;
+    padding: 45rpx 0;
+    border-bottom: 1px solid #f6f6f6;
+}
+
+.icon-dingwei-style {
+    font-size: 36rpx;
+    color: #ffffff;
+    margin-right: 20rpx;
+}
+
+.dialogModal {
+    width: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*border: 1px solid #efefef;*/
+    border-radius: 6px;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.dialogImage {
+    width: 100%;
+    display: block;
+    padding: 0;
+}
+
+.dialog_url {
+    text-align: center;
+    font-size: 26rpx;
+    color: #7f7f7f;
+    margin-top: 40rpx;
+}
+
+.dialog_url text.active {
+    color: #9ba6bf;
+}
+
+.dialog_btn {
+    width: 90%;
+    background: #f41027;
+    color: #ffffff;
+    border-radius: 45rpx;
+    height: 90rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 35rpx auto 40rpx;
+    font-size: 30rpx;
+}

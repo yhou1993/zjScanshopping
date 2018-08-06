@@ -1,0 +1,19 @@
+<template name="footer">
+  <view class="footer">
+    <view class="footerli" bindtap="_setCurrentIndex" data-index-type="0">
+      <image class="footerico" mode="scaleToFill" src=""></image>
+      <image class="footerico" mode="scaleToFill" src=""></image>
+      <text class="footertxt">供求</text>
+    </view>
+    <view class="footerli" bindtap="_setCurrentIndex" data-index-type="1">
+      <image class="footerico" mode="scaleToFill" src=""></image>
+      <image class="footerico" mode="scaleToFill" src=""></image>
+      <text class="footertxt">通讯录</text>
+    </view>
+    <view class="footerli" bindtap="_setCurrentIndex" data-index-type="2">
+      <image class="footerico" mode="scaleToFill" src=""></image>
+      <image class="footerico" mode="scaleToFill" src=""></image>
+      <text class="footertxt">我的</text>
+    </view>
+  </view>
+</template>
