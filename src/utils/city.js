@@ -18239,7 +18239,7 @@ var areas = {
       "id": "659006"
     }
   ],
-   "710000": [
+  "710000": [
     {
       "city": "台湾",
       "name": "台湾",
@@ -18259,8 +18259,12 @@ var areas = {
     }]
 }
 
+const area = {
+  citys: citys,
+  provinces: provinces,
+  areas: areas
+};
+
 module.exports = {
-  citys,
-  provinces,
-  areas
-}
+  area
+};

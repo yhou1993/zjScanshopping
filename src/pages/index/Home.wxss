@@ -31,6 +31,17 @@
     overflow: hidden;
 }
 
+.dialogContent{
+    position: absolute;
+    bottom: 0;
+    width: 140%;
+    left: -20%;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    background: #ffffff;
+    overflow: hidden;
+}
+
 .dialogImage {
     width: 100%;
     display: block;
@@ -41,7 +52,7 @@
     text-align: center;
     font-size: 26rpx;
     color: #7f7f7f;
-    margin-top: 40rpx;
+    margin-top: 64rpx;
 }
 
 .dialog_url text.active {
@@ -49,7 +60,7 @@
 }
 
 .dialog_btn {
-    width: 90%;
+    width: 64%;
     background: #f41027;
     color: #ffffff;
     border-radius: 45rpx;

@@ -2,17 +2,9 @@
 
 var _notificationActions = require('../../actions/notificationActions');
 
-var _enhancedConnect = require('../../utils/enhancedConnect');
+var _Tools = require('../../utils/Tools');
 
 var _index = require('../../libs/index');
-
-var _fetch = require('../../utils/fetch');
-
-var _WeAppStorage = require('../../utils/WeAppStorage');
-
-var _WeAppStorage2 = _interopRequireDefault(_WeAppStorage);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var pageConfig = {
   data: {
@@ -28,7 +20,7 @@ var pageConfig = {
 
     if (e.detail.iv) {
       var session_key = '';
-      _WeAppStorage2.default.getItem('reduxPersist:auth', function (error, dat) {
+      _Tools.WeAppStorage.getItem('reduxPersist:auth', function (error, dat) {
         if (!error) {
           console.log(dat);
           session_key = dat.session_key;
@@ -38,8 +30,8 @@ var pageConfig = {
       var encryptedData = e.detail.encryptedData;
       var iv = e.detail.iv;
 
-      (0, _fetch.fetchJson)({
-        url: _index.appConfig.apiBaseUrl + 'wechatminiprogram/decryptdata',
+      (0, _Tools.fetchJson)({
+        url: _index.appConfig.apiBaseUrl + 'MiniProgram/WeChat/decryptData',
         data: { sessionKey: session_key, encryptedData: encryptedData, iv: iv },
         method: 'GET'
       }).then(function (rd) {}).catch(function (error) {});
@@ -49,7 +41,7 @@ var pageConfig = {
   },
   onLoad: function onLoad() {
     var _this = this;
-    _WeAppStorage2.default.getItem('uerInfo', function (error, dat) {
+    _Tools.WeAppStorage.getItem('uerInfo', function (error, dat) {
       if (error) {
         _this.setData({
           popModal: true
@@ -118,5 +110,5 @@ var mapDispatchToPage = function mapDispatchToPage(dispatch) {
   };
 };
 
-var nextPageConfig = (0, _enhancedConnect.enhancedConnect)(mapStateToData, mapDispatchToPage)(pageConfig);
+var nextPageConfig = (0, _Tools.enhancedConnect)(mapStateToData, mapDispatchToPage)(pageConfig);
 Page(nextPageConfig);

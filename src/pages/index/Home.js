@@ -2,10 +2,8 @@ import {
   showNotification,
   hideNotification,
 } from '../../actions/notificationActions';
-import {enhancedConnect} from '../../utils/enhancedConnect';
+import {enhancedConnect,fetchJson,WeAppStorage} from '../../utils/Tools';
 import {Redux, appConfig} from '../../libs/index'
-import {fetchJson} from '../../utils/fetch';
-import WeAppStorage from '../../utils/WeAppStorage';
 
 const pageConfig = {
   data: {
@@ -32,7 +30,7 @@ const pageConfig = {
       let iv = e.detail.iv;
 
       fetchJson({
-        url: appConfig.apiBaseUrl + 'wechatminiprogram/decryptdata',
+        url: appConfig.apiBaseUrl + 'MiniProgram/WeChat/decryptData',
         data: {sessionKey: session_key, encryptedData: encryptedData, iv: iv},
         method: 'GET',
       }).then((rd) => {

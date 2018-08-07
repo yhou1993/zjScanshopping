@@ -2,19 +2,32 @@
 <view class="container">
     <view class="content">
         <view class="form_item form_phone">
-            <input placeholder="请输入手机号" auto-focus/>
+            <view class="form_input">
+                <input bindinput="bindKeyInput" data-Type="phone" placeholder-class="place-holder" placeholder="请输入手机号"/>
+            </view>
         </view>
-        <view class="form_item confirm_img">
-            <input placeholder="请输入图形验证码" auto-focus/>
-        </view>
+        <!--<view class="form_item confirm_img">-->
+        <!--<view class="form_input">-->
+        <!--<input placeholder-class="place-holder" placeholder="请输入图形验证码"/>-->
+        <!--</view>-->
+        <!--<image mode="scaleToFill" src="../../images/login_icon.jpg"></image>-->
+        <!--</view>-->
         <view class="form_item confirm_phone">
-            <input placeholder="请输入手机验证码" auto-focus/>
+            <view class="form_input">
+                <input bindinput="bindKeyInput" data-Type="confirm" placeholder-class="place-holder" placeholder="请输入手机验证码"/>
+            </view>
+            <view class="form_get" bindtap="_getConfirm">获取验证码</view>
         </view>
-        <text>未注册手机号码验证后自动创建爱你中酒账户</text>
-        <button class="dialog_btn" disabled="{{canClick}}" bindgetphonenumber="_login">登录</button>
+        <text class="note">未注册手机号码验证后自动创建中酒账户</text>
+        <view class="btn-area btn {{canClick?'active':''}}}">
+            <view class="button" bindtap="_Login">
+                <Text>登录</Text>
+            </view>
+        </view>
+        <view class="url" bindtap="_passwordView">账号密码登录</view>
     </view>
     <view class="dialog_url">
         <text>登录即表示您同意中酒网</text>
-        <text class="active">《用户使用协议》</text>
+        <text class="active" bindtap="_pageTo" data-url="../protocol/Protocol">《用户使用协议》</text>
     </view>
 </view>

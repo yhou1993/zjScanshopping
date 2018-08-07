@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchJson = exports.queryParameters = undefined;
+exports.fetchJson = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -50,8 +50,8 @@ var objectToString = function objectToString(obj) {
   return STR;
 };
 
-//拼接参数 例如：{a:1,b:2}   a=1&b=2
-var queryParameters = exports.queryParameters = function queryParameters(data) {
+//键值对拼接 例如：{a:1,b:2}   a=1&b=2
+var queryParameters = function queryParameters(data) {
   return Object.keys(data).map(function (key) {
     return [key, data[key]].join('=');
   }).join('&');
@@ -60,7 +60,7 @@ var queryParameters = exports.queryParameters = function queryParameters(data) {
 var signFunction = function signFunction(data) {
   data = objectToString(data);
   data = stringSort(data);
-  data = (_index.appConfig.validatename + _index.appConfig.Password + data).toLowerCase();
+  data = (_index.appConfig.validatename + _index.appConfig.Password + data + new Date().getTime()).toLowerCase();
   console.log(data);
   var s = (0, _index.MD5)(data);
   console.log(s);
@@ -91,7 +91,7 @@ var fetchJson = exports.fetchJson = function fetchJson() {
   }
 
   options.data.sign = signFunction(options.data);
-  options.data.validatename = _index.appConfig.validatename;
+  // options.data.validatename = appConfig.validatename;
 
   var url = options.url;
   if (params.method == 'GET') {
@@ -108,20 +108,27 @@ var fetchJson = exports.fetchJson = function fetchJson() {
       url: url
     }, params, {
       success: function success(res) {
-        // wx.hideNavigationBarLoading();
         wx.hideLoading();
         console.log(JSON.stringify(res));
+        var error = {};
         if (res.statusCode == 200) {
-          resolve(res);
+          if (res.data.Success == false || res.data.Success == 'false' || res.data.success == false || res.data.success == 'false') {
+            error.message = res.data.Msg || res.data.msg || res.data.Message || res.data.message || '请求失败,请稍后重试';
+            reject(error);
+            return;
+          }
+          resolve(res.data);
         } else {
-          reject(new Error(res && res.data && res.data.message || preDefinedError[res.statusCode] || '请求失败,请重试'));
+          error.message = preDefinedError[res.statusCode] || '请求失败,请稍后重试';
+          reject(error);
         }
       },
       fail: function fail(error) {
-        // wx.hideNavigationBarLoading();
-        wx.hideLoading();
         console.log(JSON.stringify(error));
-        reject(error);
+        wx.hideLoading();
+        var Error = {};
+        Error.message = '内部请求异常,请稍后重试';
+        reject(Error);
       }
     }));
   });

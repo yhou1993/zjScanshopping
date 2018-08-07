@@ -1,15 +1,12 @@
 //app.js
-import WeAppStorage from './utils/WeAppStorage';
+import {WeAppStorage,fetchJson} from './utils/Tools';
 import {login} from './actions/auth';
-
+import reducers from './reducers/index';
 import {Redux, ReduxPersist, thunk, RemoteReduxDevTools, WeAppRedux, appConfig} from './libs/index';
-import {fetchJson} from './utils/fetch'
 
 const {Provider} = WeAppRedux;
 const {persistStore, autoRehydrate} = ReduxPersist;
 const {createStore, compose, applyMiddleware} = Redux;
-
-import reducers from './reducers/index';
 
 const devtool = RemoteReduxDevTools({hostname: 'localhost', port: 5678, secure: false});
 
@@ -39,7 +36,7 @@ const tryToLogin = (err, state) => {
               url: appConfig.apiBaseUrl + 'MiniProgram/WeChat/onLogin',
               data: {code: res.code}
             }).then((rd) => {
-              store.dispatch(login(rd.data.openid, rd.data.session_key));
+              store.dispatch(login(rd.openid, rd.session_key));
             }).catch((error) => {
             });
           } else {

@@ -36,8 +36,8 @@ const objectToString = (obj) => { //键值对拼接
   return STR;
 };
 
-//拼接参数 例如：{a:1,b:2}   a=1&b=2
-export const queryParameters = (data) => {
+//键值对拼接 例如：{a:1,b:2}   a=1&b=2
+const queryParameters = (data) => {
   return Object.keys(data).map(
     (key) => {
       return [key, data[key]].join('=');
@@ -48,7 +48,7 @@ export const queryParameters = (data) => {
 const signFunction = (data) => {
   data = objectToString(data);
   data = stringSort(data);
-  data = (appConfig.validatename + appConfig.Password + data).toLowerCase();
+  data = (appConfig.validatename + appConfig.Password + data + new Date().getTime()).toLowerCase();
   console.log(data);
   let s = MD5(data);
   console.log(s);
@@ -76,7 +76,7 @@ export const fetchJson = (options = {}, message = '加载中') => {
   }
 
   options.data.sign = signFunction(options.data);
-  options.data.validatename = appConfig.validatename;
+  // options.data.validatename = appConfig.validatename;
 
   let url = options.url;
   if (params.method == 'GET') {
@@ -93,20 +93,27 @@ export const fetchJson = (options = {}, message = '加载中') => {
       url,
       ...params,
       success: function (res) {
-        // wx.hideNavigationBarLoading();
         wx.hideLoading();
         console.log(JSON.stringify(res));
+        let error = {};
         if (res.statusCode == 200) {
-          resolve(res);
+          if(res.data.Success == false || res.data.Success == 'false' || res.data.success == false || res.data.success == 'false'){
+            error.message = res.data.Msg || res.data.msg || res.data.Message || res.data.message || '请求失败,请稍后重试';
+            reject(error);
+            return;
+          }
+          resolve(res.data);
         } else {
-          reject(new Error((res && res.data && res.data.message) || preDefinedError[res.statusCode] || '请求失败,请重试'));
+          error.message = preDefinedError[res.statusCode] || '请求失败,请稍后重试';
+          reject(error);
         }
       },
       fail: function (error) {
-        // wx.hideNavigationBarLoading();
-        wx.hideLoading();
         console.log(JSON.stringify(error));
-        reject(error)
+        wx.hideLoading();
+        let Error = {};
+        Error.message = '内部请求异常,请稍后重试';
+        reject(Error)
       }
     })
   })

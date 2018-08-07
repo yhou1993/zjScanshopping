@@ -9,14 +9,16 @@
     <view class="modal active" wx:if="{{popModal}}">
         <view class="mask">
             <view class="dialogModal">
-                <image class="dialogImage" mode="scaleToFill" src="../../images/login_icon.png"></image>
-                <view class="dialog_url">
-                    <text>登录即表示您同意中酒网</text>
-                    <text class="active" bindtap="_pageTo" data-url="../protocol/Protocol">《用户使用协议》</text>
+                <image class="dialogImage" mode="widthFix" src="../../images/login_icon.jpg"></image>
+                <view class="dialogContent">
+                    <view class="dialog_url">
+                        <text>登录即表示您同意中酒网</text>
+                        <text class="active" bindtap="_pageTo" data-url="../protocol/Protocol">《用户使用协议》</text>
+                    </view>
+                    <button open-type="getPhoneNumber"
+                            class="dialog_btn"
+                            bindgetphonenumber="getPhoneNumber">登录</button>
                 </view>
-                <button open-type="getPhoneNumber"
-                        class="dialog_btn"
-                        bindgetphonenumber="getPhoneNumber">登录</button>
             </view>
         </view>
     </view>

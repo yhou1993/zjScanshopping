@@ -1,0 +1,116 @@
+.content {
+    flex: 1;
+    flex-direction: column;
+    background: #ffffff;
+    padding-top: 100rpx;
+}
+
+.content .form_item {
+    padding: 30rpx 0;
+    margin: 0 70rpx;
+    border-bottom: 1px solid #f6f6f6;
+}
+
+.content .form_item .form_input {
+    flex: 1;
+    margin-right: 20rpx;
+    display: flex;
+    align-items: center;
+}
+
+.content .form_phone .form_input {
+    margin-right: 0;
+}
+
+.content input {
+    font-size: 34rpx;
+    font-weight: inherit;
+}
+
+.place-holder {
+    color: #dbdbdb;
+    font-weight: inherit;
+    font-size: 34rpx;
+}
+
+.content .confirm_img, .content .confirm_phone {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+
+.content .confirm_phone .form_get {
+    /*border: 1px solid #000;*/
+    /*height: 70rpx;*/
+    /*width: 160rpx;*/
+    /*border-radius: 4px;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26rpx;
+    color: #dbdbdb;
+}
+
+.content .confirm_img image {
+    width: 160rpx;
+    height: 60rpx;
+}
+
+.note {
+    text-align: center;
+    width: 100%;
+    display: block;
+    margin: 50rpx 0;
+    color: #d7d7d7;
+    font-size: 24rpx;
+}
+
+.btn-area.btn {
+    margin: 0 70rpx;
+    padding:0;
+}
+
+.btn-area.btn .button{
+    flex:1;
+    background: #e5e5e5;
+    border-radius: 4px;
+    padding: 20rpx 0;
+    align-content: center;
+    justify-content: center;
+}
+
+.btn-area.btn .button text{
+    font-size: 34rpx;
+    color: #9d9d9d;
+    text-align: center;
+    display: block;
+}
+
+.btn-area.btn.active .button{
+    background: #f41027;
+}
+
+.btn-area.btn.active .button text{
+    color: #ffffff;
+}
+
+
+.url{
+    text-align: center;
+    display: block;
+    margin: 40rpx 0;
+    color: #6b7ca1;
+    font-size: 26rpx;
+}
+
+.dialog_url {
+    text-align: center;
+    font-size: 26rpx;
+    color: #7f7f7f;
+    padding: 70rpx 0;
+    background: #ffffff;
+}
+
+.dialog_url text.active {
+    color: #9ba6bf;
+}

@@ -14410,8 +14410,12 @@ var areas = {
   }]
 };
 
-module.exports = {
+var area = {
   citys: citys,
   provinces: provinces,
   areas: areas
+};
+
+module.exports = {
+  area: area
 };

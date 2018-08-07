@@ -27,7 +27,7 @@ gulp.task('transform-js', function () {
 });
 
 gulp.task('copy-other-files', function () {
-  return gulp.src(['src/**/*.json', '!src/project.config.json', 'src/**/*.wxml', 'src/**/*.wxss', 'src/**/*.svg', 'src/**/*.png'])
+  return gulp.src(['src/**/*.json', '!src/project.config.json', 'src/**/*.wxml', 'src/**/*.wxss', 'src/**/*.svg', 'src/**/*.png', 'src/**/*.jpg'])
     .pipe(gulp.dest('dist'));
 });
 
