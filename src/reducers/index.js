@@ -1,9 +1,11 @@
 const {Redux} = require('../libs/index');
 
-import auth from './auth'
-import notification from './notification'
+import auth from './authReducer'
+import notification from './notificationReducer'
+import login from './loginReducer'
 
 export default Redux.combineReducers({
   auth,
-  notification
+  notification,
+  login
 });

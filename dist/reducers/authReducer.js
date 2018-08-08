@@ -6,26 +6,21 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _notificationActions = require('../actions/notificationActions');
+var _authActions = require('../actions/authActions');
 
-var defaultState = {
-  text: '',
-  type: 'info' // one of 'info', 'confirm', 'warning'
-};
-
-var notificationAction = function notificationAction() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+var auth = function auth() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments[1];
 
   var obj = {
-    type: action.type, 'expiredAt': new Date().getTime()
+    type: action.type, expiredAt: new Date().getTime()
   };
   switch (action.type) {
-    case _notificationActions.SHOW_NOTIFICATION:
+    case _authActions.CRUD_CREATE:
       return _extends({}, action.payload, obj);
     default:
       return state;
   }
 };
 
-exports.default = notificationAction;
+exports.default = auth;

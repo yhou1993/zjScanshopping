@@ -8,24 +8,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _notificationActions = require('../actions/notificationActions');
 
-var defaultState = {
-  text: '',
-  type: 'info' // one of 'info', 'confirm', 'warning'
-};
-
-var notificationAction = function notificationAction() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+var notification = function notification() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments[1];
 
   var obj = {
-    type: action.type, 'expiredAt': new Date().getTime()
+    type: action.type, expiredAt: new Date().getTime()
   };
   switch (action.type) {
     case _notificationActions.SHOW_NOTIFICATION:
+      return _extends({}, action.payload, obj);
+    case _notificationActions.HIDE_NOTIFICATION:
       return _extends({}, action.payload, obj);
     default:
       return state;
   }
 };
 
-exports.default = notificationAction;
+exports.default = notification;

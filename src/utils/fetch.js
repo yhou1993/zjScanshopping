@@ -48,7 +48,7 @@ const queryParameters = (data) => {
 const signFunction = (data) => {
   data = objectToString(data);
   data = stringSort(data);
-  data = (appConfig.validatename + appConfig.Password + data + new Date().getTime()).toLowerCase();
+  data = (appConfig.validatename + appConfig.Password + data).toLowerCase();
   console.log(data);
   let s = MD5(data);
   console.log(s);
@@ -64,7 +64,7 @@ export const fetchJson = (options = {}, message = '加载中') => {
     // wx.showNavigationBarLoading();
   }
 
-  const requestHeaders = options.header || {'content-type': 'application/json'};
+  const requestHeaders = options.header || {'Content-Type': 'application/x-www-form-urlencoded'};
 
   let params = {
     header: requestHeaders,
@@ -75,6 +75,7 @@ export const fetchJson = (options = {}, message = '加载中') => {
     options.data = {}
   }
 
+  options.data.expires = new Date().getTime();
   options.data.sign = signFunction(options.data);
   // options.data.validatename = appConfig.validatename;
 
@@ -97,7 +98,7 @@ export const fetchJson = (options = {}, message = '加载中') => {
         console.log(JSON.stringify(res));
         let error = {};
         if (res.statusCode == 200) {
-          if(res.data.Success == false || res.data.Success == 'false' || res.data.success == false || res.data.success == 'false'){
+          if (res.data.Success == false || res.data.Success == 'false' || res.data.success == false || res.data.success == 'false') {
             error.message = res.data.Msg || res.data.msg || res.data.Message || res.data.message || '请求失败,请稍后重试';
             reject(error);
             return;

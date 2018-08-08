@@ -1,4 +1,21 @@
-<!--index.wxml-->
-<scroll-view class="container" scroll-y>
-    <web-view src="https://bbcredis.zhongjiu.cn/m-wap"></web-view>
-</scroll-view>
+<view class="page">
+    <scroll-view class="container" scroll-y>
+
+    </scroll-view>
+    <view class="modal active" wx:if="{{popModal}}">
+        <view class="mask">
+            <view class="dialogModal">
+                <image class="dialogImage" mode="widthFix" src="../../images/login_icon.jpg"></image>
+                <view class="dialogContent">
+                    <view class="dialog_url">
+                        <text>登录即表示您同意中酒网</text>
+                        <text class="active" bindtap="_pageTo" data-url="../protocol/Protocol">《用户使用协议》</text>
+                    </view>
+                    <button open-type="getPhoneNumber"
+                            class="dialog_btn"
+                            bindgetphonenumber="getPhoneNumber">登录</button>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

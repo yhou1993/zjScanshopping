@@ -1,9 +1,10 @@
 import {
-  showNotification,
-  hideNotification,
-} from '../../actions/notificationActions';
-import {enhancedConnect,fetchJson,WeAppStorage} from '../../utils/Tools';
+  loginActions
+} from '../../actions/loginActions';
+import {enhancedConnect, fetchJson, WeAppStorage} from '../../utils/Tools';
 import {Redux, appConfig} from '../../libs/index'
+
+var app = getApp();
 
 const pageConfig = {
   data: {
@@ -19,25 +20,54 @@ const pageConfig = {
 
     if (e.detail.iv) {
       let session_key = '';
+      let encryptedData = '';
+      let iv = '';
+      let openid = '';
       WeAppStorage.getItem('reduxPersist:auth', (error, dat) => {
         if (!error) {
           console.log(dat);
-          session_key = dat.session_key;
+          session_key = JSON.parse(dat).session_key;
+          encryptedData = e.detail.encryptedData;
+          iv = e.detail.iv;
+          openid = JSON.parse(dat).openid;
+          fetchJson({
+            url: appConfig.apiBaseUrl + 'MiniProgram/WeChat/decryptData',
+            data: {sessionKey: session_key, encryptedData: encryptedData, iv: iv},
+            method: 'POST',
+          }).then((rd) => {
+            fetchJson({
+              url: appConfig.apiBaseUrl + 'MiniProgram/Member/LoginByWeChat',
+              data: {
+                openId: openid,
+                sessionKey: session_key,
+                encryptedData: encryptedData,
+                iv: iv,
+                unionId: '',
+                nickName: '',
+                headImg: ''
+              },
+              method: 'POST',
+            }).then((Rd) => {
+              WeAppStorage.setItem('uerInfo', JSON.stringify(Rd.Data));
+              this.loginActions();
+            }).catch((error) => {
+              wx.showToast({
+                title: error.message || '请求失败,请稍后重试！',
+                icon: 'none',
+                duration: 2000
+              });
+            });
+          }).catch((error) => {
+            wx.showToast({
+              title: error.message || '请求失败,请稍后重试！',
+              icon: 'none',
+              duration: 2000
+            });
+          });
         }
       });
-
-      let encryptedData = e.detail.encryptedData;
-      let iv = e.detail.iv;
-
-      fetchJson({
-        url: appConfig.apiBaseUrl + 'MiniProgram/WeChat/decryptData',
-        data: {sessionKey: session_key, encryptedData: encryptedData, iv: iv},
-        method: 'GET',
-      }).then((rd) => {
-      }).catch((error) => {
-      });
     } else {
-      this._pageTo(null,'../login/Login')
+      this._pageTo(null, '../login/Login')
     }
   },
   onLoad: function () {
@@ -49,41 +79,28 @@ const pageConfig = {
         })
       } else {
         console.log(dat);
+        _this.setData({
+          popModal: true
+        })
       }
     });
-    // 查看是否授权
-    // wx.getSetting({
-    //   success: function (res) {
-    //     if (res.authSetting['scope.userInfo']) {
-    //       console.log('已经授权');
-    //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-    //       wx.getUserInfo({
-    //         success: function (res) {
-    //           console.log("UserInfo=" + res.userInfo)
-    //         }
-    //       })
-    //     } else {
-    //       console.log('未授权')
-    //     }
-    //   }
-    // })
-
-
-    // this.store.subscribe(() => {//监听
-    //   let State = this.store.getState();
-    //   if (State && State.projects) {
-    //     if (State.projects.type == 'SHOW_PROJECT_FORM' && this.newDate['SHOW_PROJECT_FORM'] !== State.projects.expiredAt) {
-    //       this.newDate['SHOW_PROJECT_FORM'] = State.projects.expiredAt;
-    //       console.log(State.projects)
-    //     }
-    //   }
-    // })
+    this.store.subscribe(() => {//监听
+      let State = this.store.getState();
+      if (State && State.login) {
+        if (State.login.type == 'Login_Success' && this.newDate['Login_Success'] !== State.login.expiredAt) {
+          this.newDate['Login_Success'] = State.login.expiredAt;
+          console.log(State.login);
+          this.setData({
+            popModal: false
+          })
+        }
+      }
+    })
   },
   onUnload() {
-    // this.unsubscribe();
+    this.unsubscribe();
   },
   onShow() {
-    // console.log(this.data.isShowProjectForm)
   },
   _pageTo(event, url) {
     if (url) {
@@ -100,13 +117,12 @@ const pageConfig = {
 
 const mapStateToData = (state) => {
   return {
-    notification: state.notification
+    login: state.login
   }
 };
-const mapDispatchToPage = (dispatch) => { //绑定action后可以使用this.store.dispatch(showProjectForm) || this.showProject()
+const mapDispatchToPage = (dispatch) => { //绑定action后可以使用this.store.dispatch(loginActions) || this.loginActions()
   return {
-    showNotification: Redux.bindActionCreators(showNotification, dispatch),
-    hideNotification: Redux.bindActionCreators(hideNotification, dispatch)
+    loginActions: Redux.bindActionCreators(loginActions, dispatch)
   }
 };
 

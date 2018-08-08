@@ -2,7 +2,7 @@
 
 var _Tools = require('./utils/Tools');
 
-var _auth = require('./actions/auth');
+var _authActions = require('./actions/authActions');
 
 var _index = require('./reducers/index');
 
@@ -48,7 +48,7 @@ var tryToLogin = function tryToLogin(err, state) {
               url: _index3.appConfig.apiBaseUrl + 'MiniProgram/WeChat/onLogin',
               data: { code: res.code }
             }).then(function (rd) {
-              store.dispatch((0, _auth.login)(rd.openid, rd.session_key));
+              store.dispatch((0, _authActions.authActions)(rd.openid, rd.session_key));
             }).catch(function (error) {});
           } else {
             console.log('获取用户登录状态失败');
@@ -73,9 +73,28 @@ App(Provider(store)({
         that.globalData.systemInfo = res;
       }
     });
+
+    // 查看是否授权
+    wx.getSetting({
+      success: function success(res) {
+        if (res.authSetting['scope.userInfo']) {
+          console.log('已经授权');
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          wx.getUserInfo({
+            success: function success(res) {
+              console.log("UserInfo=" + res.userInfo);
+              that.userInfo = res.userInfo;
+            }
+          });
+        } else {
+          console.log('未授权');
+        }
+      }
+    });
   },
   globalData: {
     systemInfo: {},
     userInfo: null
-  }
+  },
+  stores: store
 }));

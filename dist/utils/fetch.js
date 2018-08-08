@@ -60,7 +60,7 @@ var queryParameters = function queryParameters(data) {
 var signFunction = function signFunction(data) {
   data = objectToString(data);
   data = stringSort(data);
-  data = (_index.appConfig.validatename + _index.appConfig.Password + data + new Date().getTime()).toLowerCase();
+  data = (_index.appConfig.validatename + _index.appConfig.Password + data).toLowerCase();
   console.log(data);
   var s = (0, _index.MD5)(data);
   console.log(s);
@@ -79,7 +79,7 @@ var fetchJson = exports.fetchJson = function fetchJson() {
     // wx.showNavigationBarLoading();
   }
 
-  var requestHeaders = options.header || { 'content-type': 'application/json' };
+  var requestHeaders = options.header || { 'Content-Type': 'application/x-www-form-urlencoded' };
 
   var params = {
     header: requestHeaders,
@@ -90,6 +90,7 @@ var fetchJson = exports.fetchJson = function fetchJson() {
     options.data = {};
   }
 
+  options.data.expires = new Date().getTime();
   options.data.sign = signFunction(options.data);
   // options.data.validatename = appConfig.validatename;
 

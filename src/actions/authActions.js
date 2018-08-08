@@ -1,6 +1,5 @@
 export const CRUD_CREATE = 'CRUD_CREATE';
-
-export function login(openid, session_key, userInfo) {
+export function authActions(openid, session_key) {
   return (dispatch) => {
     dispatch({
       type: CRUD_CREATE,

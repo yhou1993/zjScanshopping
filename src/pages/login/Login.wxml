@@ -1,9 +1,10 @@
-<!--index.wxml-->
 <view class="container">
-    <view class="content">
+    <view class="content" wx:if="{{!passwordView}}">
         <view class="form_item form_phone">
             <view class="form_input">
-                <input bindinput="bindKeyInput" data-Type="phone" placeholder-class="place-holder" placeholder="请输入手机号"/>
+                <input bindinput="bindKeyInput" value="{{inputPhone}}" data-Type="phone"
+                       placeholder-class="place-holder"
+                       placeholder="请输入手机号"/>
             </view>
         </view>
         <!--<view class="form_item confirm_img">-->
@@ -14,17 +15,46 @@
         <!--</view>-->
         <view class="form_item confirm_phone">
             <view class="form_input">
-                <input bindinput="bindKeyInput" data-Type="confirm" placeholder-class="place-holder" placeholder="请输入手机验证码"/>
+                <input bindinput="bindKeyInput" value="{{inputConfirm}}" data-Type="confirm"
+                       placeholder-class="place-holder"
+                       placeholder="请输入手机验证码"/>
             </view>
-            <view class="form_get" bindtap="_getConfirm">获取验证码</view>
+            <view class="form_get" wx:if="{{timeCheck<=0}}" bindtap="_getConfirm">获取验证码</view>
+            <view class="form_get" wx:if="{{timeCheck>0&&timeCheck<=300}}" bindtap="_getConfirm">{{timeCheck}}</view>
         </view>
         <text class="note">未注册手机号码验证后自动创建中酒账户</text>
         <view class="btn-area btn {{canClick?'active':''}}}">
-            <view class="button" bindtap="_Login">
+            <view class="button" bindtap="_Login" data-Type="Login1">
                 <Text>登录</Text>
             </view>
         </view>
         <view class="url" bindtap="_passwordView">账号密码登录</view>
+    </view>
+    <view class="content" wx:if="{{passwordView}}">
+        <view class="form_item form_phone">
+            <view class="form_input">
+                <input bindinput="bindKeyInput" value="{{inputPhone1}}" data-Type="account"
+                       placeholder-class="place-holder"
+                       placeholder="请输入用户名/手机号"/>
+            </view>
+        </view>
+        <view class="form_item form-password">
+            <view class="form_input">
+                <input bindinput="bindKeyInput" password="true" data-Type="password" placeholder-class="place-holder"
+                       placeholder="请输入密码" value="{{inputPassword}}"/>
+            </view>
+        </view>
+
+        <view class="btn-area btn {{canClick2?'active':''}}}">
+            <view class="button" bindtap="_Login" data-Type="Login2">
+                <Text>登录</Text>
+            </view>
+        </view>
+
+        <view class="bottomUrl">
+            <view bindtap="_passwordView" style="flex:1;text-align: center;">短信验证码登录</view>
+            <!--<view class="forget" bindtap="_forgetPassword">忘记密码？</view>-->
+        </view>
     </view>
     <view class="dialog_url">
         <text>登录即表示您同意中酒网</text>

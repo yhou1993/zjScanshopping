@@ -1,6 +1,6 @@
 //app.js
-import {WeAppStorage,fetchJson} from './utils/Tools';
-import {login} from './actions/auth';
+import {WeAppStorage, fetchJson} from './utils/Tools';
+import {authActions} from './actions/authActions';
 import reducers from './reducers/index';
 import {Redux, ReduxPersist, thunk, RemoteReduxDevTools, WeAppRedux, appConfig} from './libs/index';
 
@@ -36,7 +36,7 @@ const tryToLogin = (err, state) => {
               url: appConfig.apiBaseUrl + 'MiniProgram/WeChat/onLogin',
               data: {code: res.code}
             }).then((rd) => {
-              store.dispatch(login(rd.openid, rd.session_key));
+              store.dispatch(authActions(rd.openid, rd.session_key));
             }).catch((error) => {
             });
           } else {
@@ -62,9 +62,28 @@ App(Provider(store)({
         that.globalData.systemInfo = res;
       }
     });
+
+    // 查看是否授权
+    wx.getSetting({
+      success: function (res) {
+        if (res.authSetting['scope.userInfo']) {
+          console.log('已经授权');
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          wx.getUserInfo({
+            success: function (res) {
+              console.log("UserInfo=" + res.userInfo);
+              that.userInfo = res.userInfo;
+            }
+          })
+        } else {
+          console.log('未授权');
+        }
+      }
+    })
   },
   globalData: {
     systemInfo: {},
     userInfo: null
-  }
+  },
+  stores: store
 }));

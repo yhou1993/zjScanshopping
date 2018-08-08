@@ -3808,7 +3808,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	      };
 
-	      this.auth.saveToken(this.options.authTokenName, data.token, {}, triggerAuthenticate);
+	      this.authActions.saveToken(this.options.authTokenName, data.token, {}, triggerAuthenticate);
 	    } else {
 	      response.error(new InvalidMessageError('No token data provided by #setAuthToken event'));
 	    }
@@ -3816,7 +3816,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  '#removeAuthToken': function (data, response) {
 	    var self = this;
 
-	    this.auth.removeToken(this.options.authTokenName, function (err, oldToken) {
+	    this.authActions.removeToken(this.options.authTokenName, function (err, oldToken) {
 	      if (err) {
 	        // Non-fatal error - Do not close the connection
 	        response.error(err);
