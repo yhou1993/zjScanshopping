@@ -16,6 +16,9 @@ gulp.task('build-lib', function () {
     .pipe(gulp.dest('dist/libs'))
 });
 
+
+
+
 gulp.task('transform-js', function () {
   return gulp.src(['src/**/*.js', '!src/libs/*'])
     .pipe(plumber())
